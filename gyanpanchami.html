@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyan Panchami Vidhi</title>
+    <link rel="preload" as="image" href="./assets/images/background.jpg">
+    <link rel="stylesheet" href="./assets/plugins/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/what.css">
+</head>
+
+<body id="body">
+
+    <div id="langSelect">
+        <div id="language">
+            <label><input type="radio" onclick="val('English')" name="lang" id="en" value="English">
+                <span>E</span>
+            </label>
+            <label><input type="radio" onclick="val('Hindi')" name="lang" id="hi" value="Hindi">
+                <span>H</span>
+            </label>
+            <label><input type="radio" onclick="val('Gujrati')" name="lang" id="gu" value="Gujrati">
+                <span>G</span>
+            </label>
+        </div>
+    </div>
+
+    <img class="page-bg" src="./assets/images/background.jpg" alt="">
+
+    <!-- back to index.html — same level as #langSelect -->
+    <a class="home-btn" href="./index.html" aria-label="Home">
+        <img src="./assets/images/home.png" alt="Home">
+    </a>
+
+    <div class="main-container">
+        <div class="stage" id="whatStage" data-topic="gyanpanchami">
+            <img class="stage-spacer" src="./assets/images/what-stage-spacer.png" alt="">
+
+            <div class="stage-item title">
+                <span class="english">Gyan Panchami Vidhi:</span>
+                <span class="hindi">Gyan Panchami Vidhi:</span>
+                <span class="gujrati">Gyan Panchami Vidhi:</span>
+            </div>
+
+            <!-- vertical topic-nav track — cross-links to the site's 4 topics.
+                 Hovering a dot slides out a pill tray naming that topic. -->
+            <div class="stage-item topic-nav">
+                <div class="topic-nav-item">
+                    <a href="./what.html" class="topic-dot">1</a>
+                    <span class="topic-label">What is Gyan Panchami ?</span>
+                </div>
+                <div class="topic-nav-item">
+                    <a href="./gyanpanchami.html" class="topic-dot is-active">2</a>
+                    <span class="topic-label">Gyan Panchami Vidhi:</span>
+                </div>
+                <div class="topic-nav-item">
+                    <a href="./how.html" class="topic-dot">3</a>
+                    <span class="topic-label">How to do Guru Pujan ?</span>
+                </div>
+                <div class="topic-nav-item">
+                    <a href="./improve.html" class="topic-dot">4</a>
+                    <span class="topic-label">How to improve memory</span>
+                </div>
+            </div>
+
+            <!-- frame border stays fixed; only the illustration underneath swipes.
+                 Slides are built at runtime by assets/js/slides.js from
+                 TOPIC_SLIDES.gyanpanchami in assets/js/data.js. -->
+            <div class="slide-frame">
+                <div class="swiper illustration-swiper">
+                    <div class="swiper-wrapper"></div>
+                </div>
+                <img src="./assets/images/frame.png" class="frame-border" alt="">
+            </div>
+
+            <!-- flourishes sit above/below the glass box, not inside it —
+                 the glass box holds only the swiping text -->
+            <div class="caption-wrap">
+                <img src="./assets/images/decoup.png" class="caption-deco caption-deco-top" alt="">
+                <div class="slide-caption">
+                    <div class="swiper caption-swiper">
+                        <div class="swiper-wrapper"></div>
+                    </div>
+                </div>
+                <img src="./assets/images/decodown.png" class="caption-deco caption-deco-bottom" alt="">
+            </div>
+
+            <div class="slide-nav-btn slide-nav-prev">
+                <img src="./assets/images/prev.png" alt="Previous">
+            </div>
+            <div class="slide-nav-btn slide-nav-next">
+                <img src="./assets/images/next.png" alt="Next">
+            </div>
+
+            <div class="stage-item what-pagination"></div>
+        </div>
+    </div>
+
+    <script src="./assets/plugins/swiper/swiper-bundle.min.js"></script>
+    <script src="./assets/js/jquery-3.7.1.js"></script>
+    <script src="./assets/js/custom.js"></script>
+    <script src="./assets/js/data.js"></script>
+    <script src="./assets/js/slides.js"></script>
+</body>
+
+</html>

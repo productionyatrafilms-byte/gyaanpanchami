@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyan Panchami</title>
+    <link rel="preload" as="image" href="./assets/images/background.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Noto+Sans+Devanagari&family=Noto+Sans+Gujarati&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/plugins/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body id="body">
+
+    <div id="langSelect">
+        <div id="language">
+            <label><input type="radio" onclick="val('English')" name="lang" id="en" value="English">
+                <span>E</span>
+            </label>
+            <label><input type="radio" onclick="val('Hindi')" name="lang" id="hi" value="Hindi">
+                <span>H</span>
+            </label>
+            <label><input type="radio" onclick="val('Gujrati')" name="lang" id="gu" value="Gujrati">
+                <span>G</span>
+            </label>
+        </div>
+    </div>
+
+    <img class="page-bg" src="./assets/images/background.jpg" alt="">
+
+    <!-- positioned relative to body, same level as #langSelect, so it lines
+         up with it at every window size — shown only once the click
+         transition fully finishes -->
+    <button type="button" class="back-btn" id="btnBack" aria-label="Back">
+        <img src="./assets/images/back.png" alt="Back">
+    </button>
+
+    <div class="main-container">
+        <div class="stage" id="homeStage">
+            <img class="stage-spacer" src="./assets/images/stage-spacer.png" alt="">
+
+            <!-- default state only: backdrop card holding the title + click button -->
+            <img class="stage-item main-card" src="./assets/images/maincard.png" alt="">
+
+            <!-- title: default (big, centered) and revealed (small, higher) share one node, size/position change via .is-revealed -->
+            <div class="stage-item title">
+                <span class="english">Gyan <br/> Panchami</span>
+                <span class="hindi">Gyan <br/> Panchami</span>
+                <span class="gujrati">Gyan <br/> Panchami</span>
+            </div>
+
+            <!-- default state: click-to-reveal button -->
+            <button type="button" class="stage-item btn-click" id="btnReveal">
+                <span class="btn-click-label">
+                    <span class="english">Click</span>
+                    <span class="hindi">Click</span>
+                    <span class="gujrati">Click</span>
+                </span>
+            </button>
+
+            <!-- revealed-state composition: center decoration + all 4 topic
+                 cards, grouped so they scale up together from the exact
+                 center as ONE unit (zoom-through transition) -->
+            <div class="reveal-group" id="revealGroup">
+                <img class="stage-item center-deco center-deco-lg" src="./assets/images/inner.png" alt="">
+                <img class="stage-item center-deco center-deco-sm" src="./assets/images/inner.png" alt="">
+
+                <a href="./what.html" class="stage-item topic-card topic-card-1">
+                    <img src="./assets/images/cards.png" alt="">
+                    <span class="topic-card-label">
+                        <span class="english"><b>1.</b> What is Gyan Panchami ?</span>
+                        <span class="hindi"><b>1.</b> What is Gyan Panchami ?</span>
+                        <span class="gujrati"><b>1.</b> What is Gyan Panchami ?</span>
+                    </span>
+                </a>
+
+                <a href="./gyanpanchami.html" class="stage-item topic-card topic-card-2">
+                    <img src="./assets/images/cards.png" alt="">
+                    <span class="topic-card-label">
+                        <span class="english"><b>2.</b> Gyan Panchami Vidhi:</span>
+                        <span class="hindi"><b>2.</b> Gyan Panchami Vidhi:</span>
+                        <span class="gujrati"><b>2.</b> Gyan Panchami Vidhi:</span>
+                    </span>
+                </a>
+
+                <a href="./how.html" class="stage-item topic-card topic-card-3">
+                    <img src="./assets/images/cards.png" alt="">
+                    <span class="topic-card-label">
+                        <span class="english"><b>3.</b> How to do Guru Pujan ?</span>
+                        <span class="hindi"><b>3.</b> How to do Guru Pujan ?</span>
+                        <span class="gujrati"><b>3.</b> How to do Guru Pujan ?</span>
+                    </span>
+                </a>
+
+                <a href="./improve.html" class="stage-item topic-card topic-card-4">
+                    <img src="./assets/images/cards.png" alt="">
+                    <span class="topic-card-label">
+                        <span class="english"><b>4.</b> How to improve memory</span>
+                        <span class="hindi"><b>4.</b> How to improve memory</span>
+                        <span class="gujrati"><b>4.</b> How to improve memory</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/plugins/swiper/swiper-bundle.min.js"></script>
+    <script src="./assets/js/jquery-3.7.1.js"></script>
+    <script src="./assets/js/custom.js"></script>
+    <script src="./assets/js/index.js"></script>
+</body>
+
+</html>

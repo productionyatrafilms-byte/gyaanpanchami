@@ -1,0 +1,337 @@
+:root {
+    --bg-cream: #ffe2a2;
+    --maroon: #802922;
+    --card-text: #ffffff;
+}
+
+/* Fonts fall back until the real files land in /fonts/ — see index.md 0.2 */
+.topic-card-label {
+    font-family: "Berkshire Swash", cursive;
+}
+
+/* Per-language display font on the title — English stays decorative,
+   Hindi/Gujarati use a script that actually renders Devanagari/Gujarati. */
+.title .english {
+    font-family: "Berkshire Swash", cursive;
+}
+
+.title .hindi {
+    font-family: "Noto Sans Devanagari", "Devanagari Sangam MN", serif;
+}
+
+.title .gujrati {
+    font-family: "Noto Sans Gujarati", sans-serif;
+}
+
+.btn-click-label,
+.topic-card-label {
+    font-family: "Barlow Condensed", sans-serif;
+}
+
+/* Subpoint labels (the 4 topic cards) — English uses Baloo */
+.topic-card-label .english {
+    font-family: "Baloo", sans-serif;
+}
+
+/* Vertically center the stage on this page (shared style.css anchors it to
+   top via align-content:space-between); doesn't affect other pages since
+   this rule only loads with index.html, and still scrolls normally when
+   content is taller than the viewport. */
+.main-container {
+    align-content: center;
+}
+
+/* ---------- Page background ---------- */
+/* Pre-click: flat #ffe2a2. Revealed: the textured background.jpg swirl. */
+body {
+    background-color: var(--bg-cream);
+}
+
+/* No transition here on purpose: main-card (opaque) sits above page-bg the
+   whole time and only gets hidden the instant the zoom-through animation
+   finishes (see .stage.is-revealed .main-card), at which point page-bg
+   is uncovered in the same frame — a clean swap with nothing visibly
+   fading, matching "no sudden opacity changes during the motion". */
+.page-bg {
+    opacity: 0;
+}
+
+body.is-revealed .page-bg {
+    opacity: 1;
+}
+
+/* ---------- Backdrop card behind title + Click button (default state only) ---------- */
+.main-card {
+    left: 50%;
+    top: 10%;
+    width: 55vw;
+    z-index: 1;
+    transform: translateX(-50%);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* ---------- Click transition: continuous center zoom-through ----------
+   One 1.8s timeline shared by .main-card and .reveal-group below, all
+   `linear` so speed never ramps up/down mid-flight (avoids a staggered
+   look). main-card spins AND scales up together, the whole way through,
+   while .reveal-group grows from tiny to full size at the same time —
+   one continuous motion, not two animations stitched together. */
+@keyframes mainCardZoomThrough {
+    0% {
+        transform: translateX(-50%) scale(1) rotate(0deg);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(9) rotate(1.3turn);
+    }
+}
+
+.stage.is-animating .main-card {
+    animation: mainCardZoomThrough 1.8s linear forwards;
+}
+
+/* Hidden only once the animation has fully settled — see comment on
+   .page-bg above for why this is a plain (non-transitioning) swap. */
+.stage.is-revealed .main-card {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) scale(9);
+    transition: none;
+}
+
+/* ---------- Title: "Gyan Panchami" ---------- */
+/* Same position/size in both default and revealed states — no longer shrinks
+   or moves on reveal, per direct instruction. */
+.title {
+    left: 50%;
+    top: 50%;
+    width: 46.87vw;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--maroon);
+    font-size: 6vw;
+    line-height: 0.98;
+    -webkit-text-stroke: 0.25vw var(--bg-cream);
+    paint-order: stroke fill;
+}
+
+/* Small dip-and-recover pulse during the click transition — title stays in
+   its exact spot the whole time, just briefly scales down then back up to
+   its original size by the time the transition ends. */
+@keyframes titlePulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.stage.is-animating .title {
+    animation: titlePulse 1.8s linear forwards;
+}
+
+.stage.is-revealed .title {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ---------- Click button: solid pill (pure CSS, no image) ---------- */
+.btn-click {
+    left: 50%;
+    top: 80%;
+    width: 7vw;
+    aspect-ratio: 2.4 / 1;
+    height: auto;
+    z-index: 2;
+    transform: translateX(-50%);
+    border: 0.12vw solid var(--maroon);
+    padding: 0;
+    background: var(--bg-cream);
+    border-radius: 50vw;
+    box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+}
+
+.btn-click-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--maroon);
+    font-weight: 700;
+    font-size: 1.8vw;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.stage.is-animating .btn-click,
+.stage.is-revealed .btn-click {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+/* ---------- Reveal group ----------
+   Back button + center decoration + all 4 topic cards, wrapped so they
+   scale up TOGETHER as one unit from the exact center — this is what keeps
+   every element in its correct relative position throughout the zoom
+   instead of animating independently. Spans the full stage so each child's
+   existing left/top % still resolves exactly as before. */
+.reveal-group {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    line-height: 0;
+    pointer-events: none;
+    transform: scale(0.01);
+}
+
+@keyframes revealGroupZoomThrough {
+    0% {
+        transform: scale(0.01);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.stage.is-animating .reveal-group {
+    animation: revealGroupZoomThrough 1.8s linear forwards;
+}
+
+.stage.is-revealed .reveal-group {
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+/* ---------- Back button ----------
+   Positioned relative to body (not .stage), same top% as #langSelect in
+   style.css, so the two line up at every window size. Appears only once
+   the click transition has fully finished — not part of .reveal-group. */
+.back-btn {
+    position: absolute;
+    top: 4%;
+    left: 2%;
+    width: 2.69vw;
+    z-index: 999999;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.back-btn img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+body.is-revealed .back-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ---------- Center decoration ---------- */
+/* Spins in place while .reveal-group (its parent) grows it from tiny to
+   full size — only the decoration spins, not the whole group, so the
+   topic cards/back button stay upright. */
+.center-deco-lg {
+    left: 28.44%;
+    top: 8.11%;
+    width: 43.09vw;
+}
+
+.center-deco-sm {
+    left: 30.47%;
+    top: 12.38%;
+    width: 39.03vw;
+}
+
+@keyframes centerDecoSpinIn {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        /* counter-rotates against main-card's spin for visual variety */
+        transform: rotate(-1turn);
+    }
+}
+
+.stage.is-animating .center-deco {
+    animation: centerDecoSpinIn 1.8s linear forwards;
+}
+
+.stage.is-revealed .center-deco {
+    transform: rotate(0deg);
+}
+
+/* ---------- Topic cards ---------- */
+.topic-card {
+    width: 18.99vw;
+    display: block;
+}
+
+.topic-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 2.5s ease;
+}
+
+.topic-card:hover img {
+    transform: rotate(360deg);
+}
+
+.topic-card-1 {
+    left: 11.72%;
+    top: 6.90%;
+}
+
+.topic-card-2 {
+    left: 69.58%;
+    top: 6.90%;
+}
+
+.topic-card-3 {
+    left: 11.72%;
+    top: 60.02%;
+}
+
+.topic-card-4 {
+    left: 69.58%;
+    top: 60.02%;
+}
+
+.topic-card-label {
+    position: absolute;
+    top: 29.68%;
+    left: 12.56%;
+    right: 12.56%;
+    bottom: 29.91%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--card-text);
+    font-size: 2.34vw;
+    line-height: 1.1;
+    text-shadow: 0 0.21vw 0.21vw rgba(0, 0, 0, 0.25);
+}
+

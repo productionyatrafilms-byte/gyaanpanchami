@@ -1,0 +1,377 @@
+/* Shared stylesheet for all 4 topic sub-pages (what.html, gyanpanchami.html,
+   how.html, improve.html) — they're visually/structurally identical, only
+   their slide data differs (see assets/js/data.js + slides.js). Kept the
+   "what.css" filename to avoid churn; despite the name it's not what-only. */
+:root {
+    --maroon: #802922;
+    --caption-color: #b1492d;
+    --card-glass: rgba(255, 254, 251, 0.45);
+}
+
+.caption-text {
+    font-family: "Barlow Condensed", sans-serif;
+}
+
+/* Per-language display font on the title — English stays decorative,
+   Hindi/Gujarati use a script that actually renders Devanagari/Gujarati. */
+.title .english {
+    font-family: "Berkshire Swash", cursive;
+}
+
+.title .hindi {
+    font-family: "Noto Sans Devanagari", "Devanagari Sangam MN", serif;
+}
+
+.title .gujrati {
+    font-family: "Noto Sans Gujarati", sans-serif;
+}
+
+/* Vertically center the stage on this page — see index.css for the same
+   pattern; harmless here too since it only applies via what.html. */
+.main-container {
+    align-content: center;
+}
+
+/* ---------- Page-load entrance ----------
+   Frame slides in from the left, caption+decos slide in from the right,
+   nav arrows/pagination just fade in. Runs once on load, not on hover. */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ---------- Home button ----------
+   Positioned relative to body, same top% as #langSelect, mirrored to the
+   opposite corner. */
+.home-btn {
+    position: absolute;
+    top: 4%;
+    left: 2%;
+    width: 2.69vw;
+    z-index: 999999;
+    display: block;
+}
+
+.home-btn img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ---------- Title ---------- */
+.title {
+    left: 22.17%;
+    top: 2%;
+    width: 55.34vw;
+    text-align: center;
+    color: var(--maroon);
+    font-size: 4vw;
+    line-height: 1.1;
+}
+
+/* ---------- Topic nav (vertical track, right edge) ---------- */
+/* z-index here matters, not just on .topic-label: the transform below
+   creates its own stacking context, so without this the whole nav (and
+   everything in it) stacks by DOM order against siblings like
+   .caption-wrap regardless of any z-index set on children. */
+.topic-nav {
+    left: 95.47%;
+    top: 52.32%;
+    width: 3.7vw;
+    height: 17.86vw;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    background: #ffd35a;
+    border: 0.16vw solid #fff;
+    border-radius: 2.68vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.topic-dot {
+    position: relative;
+    z-index: 51;
+    width: 3.07vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--maroon);
+    color: #fff;
+    font-family: "Baloo", sans-serif;
+    font-size: 1.6vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.topic-dot:hover {
+    background: #f7c4b7;
+    color: var(--maroon);
+}
+
+/* pill tray — hidden by default, slides out to the left on hover */
+.topic-nav-item {
+    position: relative;
+}
+
+.topic-label {
+    position: absolute;
+    right: 55%;
+    top: 50%;
+    z-index: 50;
+    transform: translate(0.5vw, -50%);
+    background: #fff;
+    color: #9b381d;
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 700;
+    font-size: 1.1vw;
+    white-space: nowrap;
+    padding: 1.4vw 2.4vw 1.4vw 1.2vw;
+    border-radius: 2vw;
+    box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.topic-nav-item:hover .topic-label {
+    opacity: 1;
+    transform: translate(0, -50%);
+}
+
+/* ---------- Swiper ---------- */
+.what-swiper-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ---------- Slide illustration frame ----------
+   frame-border and the box itself are static — only .illustration-swiper's
+   content swipes underneath the fixed border. */
+.slide-frame {
+    position: absolute;
+    left: 6.51%;
+    top: 21.10%;
+    width: 45.21vw;
+    line-height: 0;
+    animation: slideInLeft 0.7s ease-out forwards;
+}
+
+.frame-border {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+.illustration-swiper {
+    position: absolute;
+    left: 9%;
+    top: 2%;
+    width: 81%;
+    height: 91%;
+    border-radius: 2vw;
+    overflow: hidden;
+    z-index: 3;
+}
+
+/* Swiper has no built-in "reverse vertical" option, so the container is
+   mirrored and each slide's content is mirrored back — net effect: the
+   slide transition runs top-to-bottom instead of bottom-to-top. */
+.illustration-swiper {
+    transform: scaleY(-1);
+}
+
+.illustration-swiper .swiper-slide {
+    width: 100%;
+    height: 100%;
+    transform: scaleY(-1);
+}
+
+.slide-illustration {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---------- Caption box ----------
+   decoup/decodown sit ABOVE and BELOW the glass box, not inside it — the
+   glass box itself holds only the swiping text. .caption-wrap is the
+   static, absolutely-positioned anchor (same spot the box used to occupy);
+   .slide-caption is just the glass rectangle, stacked in normal flow. */
+.caption-wrap {
+    position: absolute;
+    left: 57.76%;
+    top: 21.10%;
+    width: 35vw;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0;
+    animation: slideInRight 0.7s ease-out forwards;
+}
+
+/* Fixed height — never grows/shrinks with per-slide text length */
+.slide-caption {
+    width: 100%;
+    height: 18.65vw;
+    background: var(--card-glass);
+    border-radius: 1.15vw;
+    padding: 1.5vw 2vw;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.caption-deco {
+    width: 55%;
+    height: auto;
+    display: block;
+}
+
+.caption-swiper {
+    width: 100%;
+    height: 100%;
+    line-height: normal;
+    transform: scaleY(-1);
+}
+
+.caption-swiper .swiper-wrapper,
+.caption-swiper .swiper-slide {
+    height: 100%;
+}
+
+.caption-swiper .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scaleY(-1);
+}
+
+.caption-text {
+    color: var(--caption-color);
+    font-weight: 800;
+    font-size: 1.8vw;
+    line-height: 1.15;
+    margin: 0.6vw 0;
+}
+
+/* Subpoint text (slide captions) — English uses Baloo */
+.caption-text .english {
+    font-family: "Baloo", sans-serif;
+}
+
+/* ---------- Slide nav arrows (shared, control the swiper) ---------- */
+.slide-nav-btn {
+    position: absolute;
+    width: 3.54vw;
+    top: 80%;
+    cursor: pointer;
+    z-index: 5;
+    opacity: 1;
+    animation: fadeIn 0.6s ease-out 0.5s both;
+    transition: opacity 0.25s ease;
+}
+
+/* loop is off — Swiper marks the nav button disabled at either end */
+.slide-nav-btn.swiper-button-disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.slide-nav-btn img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.slide-nav-prev {
+    left: 12.97%;
+}
+
+.slide-nav-next {
+    left: 41.67%;
+}
+
+/* ---------- Pagination dots (sit inline, between the prev/next arrows) ----------
+   Swiper's own .swiper-pagination-horizontal/-vertical rule beats a plain
+   .what-pagination selector on specificity — and the swiper is vertical now
+   (see what.js) so it's the -vertical class Swiper actually applies. Scoping
+   through the page's #whatStage id instead keeps this correct regardless of
+   which direction class Swiper injects. */
+/* Bullet size/gap are set per-page by slides.js (--pagination-bullet-size /
+   --pagination-gap), scaled down as slide count grows — improve.html has
+   15 slides vs what.html's 5, and a fixed 1.51vw/5-dot width would badly
+   overflow the gap between the arrows at higher counts. Defaults here match
+   the original fixed 5-dot look. */
+#whatStage .what-pagination {
+    left: 23.49%;
+    top: 85%;
+    width: auto;
+    max-width: 20vw;
+    height: 3.54vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--pagination-gap, 0.6vw);
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 0.5s forwards;
+}
+
+#whatStage .what-pagination .swiper-pagination-bullet {
+    width: var(--pagination-bullet-size, 1.51vw);
+    height: var(--pagination-bullet-size, 1.51vw);
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: #9b381d;
+    opacity: 1;
+    border: 0.1vw solid var(--caption-color);
+    margin: 0;
+    flex-shrink: 0;
+}
+
+#whatStage .what-pagination .swiper-pagination-bullet-active {
+    background: #ffffff;
+}
