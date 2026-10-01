@@ -33,6 +33,16 @@
     font-family: "Baloo", sans-serif;
 }
 
+.topic-card-label .hindi,
+.btn-click-label .hindi {
+    font-family: "Noto Sans Devanagari", "Devanagari Sangam MN", serif;
+}
+
+.topic-card-label .gujrati,
+.btn-click-label .gujrati {
+    font-family: "Noto Sans Gujarati", sans-serif;
+}
+
 /* Vertically center the stage on this page (shared style.css anchors it to
    top via align-content:space-between); doesn't affect other pages since
    this rule only loads with index.html, and still scrolls normally when
@@ -156,11 +166,35 @@ body.is-revealed .page-bg {
     border-radius: 50vw;
     box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.25);
     cursor: pointer;
+    overflow: hidden;
     transition: opacity 0.4s ease;
+}
+
+/* Hover fill — a circle anchored at the button's bottom-center, scaled to 0
+   until hover, then grows past full size so it reaches every corner of the
+   pill; overflow:hidden on .btn-click clips it back to the pill shape,
+   giving the "grows from bottom to up" reveal. */
+.btn-click::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 220%;
+    aspect-ratio: 1;
+    background: var(--maroon);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.45s ease;
+    pointer-events: none;
+}
+
+.btn-click:hover::before {
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .btn-click-label {
     position: absolute;
+    z-index: 1;
     inset: 0;
     display: flex;
     align-items: center;
@@ -171,6 +205,20 @@ body.is-revealed .page-bg {
     font-size: 1.8vw;
     line-height: 1;
     white-space: nowrap;
+    padding: 0 1vw;
+    box-sizing: border-box;
+    transition: color 0.3s ease;
+}
+
+/* Hindi/Gujarati "Click" text is longer than English — shrink it a touch so
+   it keeps clear space from the pill's curved border instead of touching it. */
+.btn-click-label .hindi,
+.btn-click-label .gujrati {
+    font-size: 1.3vw;
+}
+
+.btn-click:hover .btn-click-label {
+    color: var(--bg-cream);
 }
 
 .stage.is-animating .btn-click,

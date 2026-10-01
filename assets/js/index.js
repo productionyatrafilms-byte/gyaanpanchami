@@ -8,8 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // screen is already growing from the center while main-card is still
     // expanding outward.
     var ZOOM_MS = 1800;
+    var transitionSound = new Audio("./assets/audio/transistion-click.mp3");
 
     btnReveal.addEventListener("click", function () {
+        transitionSound.currentTime = 0;
+        transitionSound.play().catch(function () {});
         stage.classList.add("is-animating");
 
         // Once the shared timeline finishes, lock in the resting state:

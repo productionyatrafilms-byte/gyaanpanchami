@@ -1,0 +1,167 @@
+/* pranam.html — adapted from Stubbornness/pranam.html's .pranam-container
+   block. Same layout/behaviour (circular masked video, popping home button);
+   background and back button use this project's own assets/shell instead. */
+
+.main-container {
+    align-content: center;
+}
+
+/* ---------- Home button ----------
+   Same as what.css — positioned relative to body, same top% as
+   #langSelect, mirrored to the opposite corner. */
+.home-btn {
+    position: absolute;
+    top: 4%;
+    left: 2%;
+    width: 2.69vw;
+    z-index: 999999;
+    display: block;
+}
+
+.home-btn img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pranam-container {
+    position: absolute;
+    width: 45vw;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pranam-container>.pranam-img {
+    position: relative;
+    width: 85%;
+    height: auto;
+    display: block;
+}
+
+.pranam-container>.pranam-img>img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pranam-img .pranam-title {
+    z-index: 15;
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    font-size: 3.4vw;
+    transform: translateX(-50%);
+    color: var(--maroon, #802922);
+}
+
+.pranam-title .english {
+    font-family: "Berkshire Swash", cursive;
+}
+
+.pranam-title .hindi {
+    font-family: "Noto Sans Devanagari", "Devanagari Sangam MN", serif;
+}
+
+.pranam-title .gujrati {
+    font-family: "Noto Sans Gujarati", sans-serif;
+}
+
+.pranam-video {
+    position: absolute;
+    left: 50%;
+    top: 49%;
+    transform: translate(-50%, -50%);
+    width: 28vw;
+    height: 28vw;
+    border-radius: 50%;
+    background-color: #f6f6f6;
+    background-image: url("../images/pranam-bg-1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding-right: 2.5vw;
+    z-index: 5;
+}
+
+.pranam-video video {
+    width: 90%;
+    height: 83%;
+    object-fit: cover;
+
+    mask-image:
+        linear-gradient(to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.8) 2%,
+            rgba(0, 0, 0, 0.95) 4%,
+            black 6%,
+            black 90%,
+            rgba(0, 0, 0, 0.95) 96%,
+            rgba(0, 0, 0, 0.8) 98%,
+            transparent 100%),
+        linear-gradient(to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.8) 2%,
+            rgba(0, 0, 0, 0.95) 4%,
+            black 6%,
+            black 90%,
+            rgba(0, 0, 0, 0.95) 96%,
+            rgba(0, 0, 0, 0.8) 98%,
+            transparent 100%);
+    mask-composite: intersect;
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+}
+
+.pranam-container .home-btn-1 {
+    position: absolute;
+    top: 88%;
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+    width: 15vw;
+    height: auto;
+    transition: transform 0.2s ease;
+    transform-origin: center center;
+    text-decoration: none;
+    display: block;
+}
+
+.pranam-container .home-btn-1:hover {
+    transform: translateX(-50%) scale(1.15);
+}
+
+.pranam-container .home-btn-1 img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.home-btn-1 .home-btn-1-label {
+    z-index: 15;
+    position: absolute;
+    top: 45%;
+    left: 38%;
+    font-size: 2.5vw;
+    transform: translateY(-50%);
+    color: var(--maroon, #802922);
+}
+
+.home-btn-1-label .english {
+    font-family: "Baloo", sans-serif;
+}
+
+.home-btn-1-label .hindi {
+    font-family: "Noto Sans Devanagari", "Devanagari Sangam MN", serif;
+}
+
+.home-btn-1-label .gujrati {
+    font-family: "Noto Sans Gujarati", sans-serif;
+}

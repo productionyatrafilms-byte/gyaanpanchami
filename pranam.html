@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranam</title>
+    <link rel="preload" as="image" href="./assets/images/background.jpg">
+    <link rel="stylesheet" href="./assets/plugins/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/pranam.css">
+</head>
+
+<body id="body">
+
+    <div id="langSelect">
+        <div id="language">
+            <label><input type="radio" onclick="val('English')" name="lang" id="en" value="English">
+                <span>E</span>
+            </label>
+            <label><input type="radio" onclick="val('Hindi')" name="lang" id="hi" value="Hindi">
+                <span>H</span>
+            </label>
+            <label><input type="radio" onclick="val('Gujrati')" name="lang" id="gu" value="Gujrati">
+                <span>G</span>
+            </label>
+        </div>
+    </div>
+
+    <img class="page-bg" src="./assets/images/background.jpg" alt="">
+
+    <!-- back to improve.html (the only page that links here) — same level
+         as #langSelect, this project's own back button (not Stubbornness's
+         fontawesome one) -->
+    <a class="home-btn" href="./improve.html" aria-label="Back">
+        <img src="./assets/images/back.png" alt="Back">
+    </a>
+
+    <div class="main-container">
+        <div class="stage">
+            <img class="stage-spacer" src="./assets/images/stage-spacer.png" alt="">
+
+            <div class="pranam-container">
+                <div class="pranam-img">
+                    <div class="pranam-video">
+                        <video src="./assets/videos/pranam.mp4" autoplay muted loop playsinline></video>
+                    </div>
+                    <span class="pranam-title">
+                        <span class="english">Pranam</span>
+                        <span class="hindi">प्रणाम</span>
+                        <span class="gujrati">પ્રણામ</span>
+                    </span>
+                    <img src="./assets/images/pranam-img.png" alt="">
+                </div>
+                <a href="./index.html" class="home-btn-1">
+                    <span class="home-btn-1-label">
+                        <span class="english">Home</span>
+                        <span class="hindi">होम</span>
+                        <span class="gujrati">ઘર</span>
+                    </span>
+                    <img src="./assets/images/home-btn-1.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/plugins/swiper/swiper-bundle.min.js"></script>
+    <script src="./assets/js/jquery-3.7.1.js"></script>
+    <script src="./assets/js/custom.js?v=7"></script>
+
+    <script>
+        (function () {
+            var pranamSound = new Audio("./assets/audio/pranam.mp3");
+            pranamSound.preload = "auto";
+
+            var hasPlayed = false;
+
+            function playPranamOnce() {
+                if (hasPlayed) return;
+                hasPlayed = true;
+
+                var playPromise = pranamSound.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(function () {
+                        hasPlayed = false;
+                        function retry() {
+                            document.removeEventListener("click", retry);
+                            document.removeEventListener("keydown", retry);
+                            document.removeEventListener("touchstart", retry);
+                            playPranamOnce();
+                        }
+                        document.addEventListener("click", retry, { once: true });
+                        document.addEventListener("keydown", retry, { once: true });
+                        document.addEventListener("touchstart", retry, { once: true });
+                    });
+                }
+            }
+
+            window.addEventListener("DOMContentLoaded", playPranamOnce);
+        })();
+    </script>
+</body>
+
+</html>

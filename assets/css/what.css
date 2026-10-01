@@ -221,6 +221,7 @@
 .illustration-swiper .swiper-slide {
     width: 100%;
     height: 100%;
+    position: relative;
     transform: scaleY(-1);
 }
 
@@ -247,6 +248,7 @@
     align-items: center;
     line-height: 0;
     animation: slideInRight 0.7s ease-out forwards;
+    transition: opacity 0.3s ease;
 }
 
 /* Fixed height — never grows/shrinks with per-slide text length */
@@ -321,6 +323,22 @@
     cursor: default;
 }
 
+/* Releases the entrance fadeIn's "forwards" hold once it's finished playing,
+   so swiper-button-disabled's opacity can take over normally (was done via
+   an inline style before — moved to a class so the has-end-overlay rule
+   below can still win on specificity). */
+.slide-nav-btn.entrance-done {
+    animation: none;
+}
+
+/* "Next" at the last slide still opens the end-of-topic overlay (see
+   slides.js `endOverlay`), so it shouldn't look disabled/dead like a normal
+   last-slide "next" — stays full-opacity and clickable. */
+.slide-nav-btn.has-end-overlay.swiper-button-disabled {
+    opacity: 1;
+    cursor: pointer;
+}
+
 .slide-nav-btn img {
     width: 100%;
     height: auto;
@@ -341,28 +359,27 @@
    (see what.js) so it's the -vertical class Swiper actually applies. Scoping
    through the page's #whatStage id instead keeps this correct regardless of
    which direction class Swiper injects. */
-/* Bullet size/gap are set per-page by slides.js (--pagination-bullet-size /
-   --pagination-gap), scaled down as slide count grows — improve.html has
-   15 slides vs what.html's 5, and a fixed 1.51vw/5-dot width would badly
-   overflow the gap between the arrows at higher counts. Defaults here match
-   the original fixed 5-dot look. */
+/* Same dot size/gap on every page regardless of slide count (5 on
+   what.html/how.html, 9 on gyanpanchami.html, 17 on improve.html) — sized so
+   17 dots still fit the gap between the arrows without overflowing. */
 #whatStage .what-pagination {
-    left: 23.49%;
-    top: 85%;
+    left: 28.39%;
+    top: 82%;
+    transform: translateX(-50%);
     width: auto;
-    max-width: 20vw;
+    max-width: 24vw;
     height: 3.54vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--pagination-gap, 0.6vw);
+    gap: 0.3vw;
     opacity: 0;
     animation: fadeIn 0.6s ease-out 0.5s forwards;
 }
 
 #whatStage .what-pagination .swiper-pagination-bullet {
-    width: var(--pagination-bullet-size, 1.51vw);
-    height: var(--pagination-bullet-size, 1.51vw);
+    width: 1vw;
+    height: 1vw;
     border-radius: 50%;
     box-sizing: border-box;
     background: #9b381d;
@@ -374,4 +391,163 @@
 
 #whatStage .what-pagination .swiper-pagination-bullet-active {
     background: #ffffff;
+}
+
+/* ---------- End-of-topic "Pranam" link ----------
+   Only rendered when data.js flags an `endLink` on a topic (currently just
+   improve.html) — shown only on that topic's last slide, bottom-right of
+   the stage, linking out (e.g. to pranam.html). See slides.js. */
+.pranam-end-link {
+    position: absolute;
+    right: 3%;
+    top: 80%;
+    width: 8vw;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.85);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.pranam-end-link.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    animation: pranamPop 1.2s ease-in-out infinite;
+}
+
+.pranam-end-link img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pranam-end-link-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.3vw;
+    text-align: center;
+    padding-right: 1.2vw;
+    white-space: nowrap;
+}
+
+.pranam-end-link-label .english {
+    font-family: "Baloo", sans-serif;
+}
+
+.pranam-end-link-label .hindi {
+    font-family: "Noto Sans Devanagari", "Devanagari Sangam MN", serif;
+}
+
+.pranam-end-link-label .gujrati {
+    font-family: "Noto Sans Gujarati", sans-serif;
+}
+
+@keyframes pranamPop {
+
+    0%,
+    100% {
+        transform: scale(0.85);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+}
+
+/* ---------- End-of-topic popup overlay ----------
+   Only rendered when data.js flags an `endOverlay` on a topic (currently
+   gyanpanchami.html) — not a swiper slide; shown over the stage when "next"
+   is clicked on the last slide, closed again by its own back button. See
+   slides.js. */
+.topic-end-overlay {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 62vw;
+    transform: translate(-50%, -50%) scale(0.92);
+    z-index: 15;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.topic-end-overlay.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.topic-end-overlay-card {
+    width: 100%;
+    min-height: 20vw;
+    background: #ffffff;
+    border: 0.2vw solid var(--caption-color);
+    border-radius: 3.5vw;
+    padding: 5vw 3vw;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0.5vw 1.5vw rgba(0, 0, 0, 0.25);
+}
+
+/* Blurs everything else on the stage while the popup is open, so the card
+   reads as a modal in front of the slide rather than just another layer. */
+.stage.is-overlay-open .slide-frame,
+.stage.is-overlay-open .caption-wrap,
+.stage.is-overlay-open .topic-nav,
+.stage.is-overlay-open .slide-nav-btn,
+.stage.is-overlay-open .what-pagination {
+    filter: blur(0.5vw);
+    transition: filter 0.3s ease;
+}
+
+.topic-end-overlay-card .caption-text {
+    margin: 0;
+}
+
+/* Sits in the exact .home-btn slot (top-left, same level as #langSelect) —
+   .home-btn hides while this is open, this shows in its place. */
+.topic-end-overlay-back {
+    position: absolute;
+    top: 4%;
+    left: 2%;
+    width: 2.69vw;
+    z-index: 999999;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.topic-end-overlay-back.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.topic-end-overlay-back img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.home-btn {
+    transition: opacity 0.3s ease;
+}
+
+.home-btn.is-hidden-by-overlay {
+    opacity: 0;
+    pointer-events: none;
 }
