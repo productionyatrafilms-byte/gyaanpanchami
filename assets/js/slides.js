@@ -28,9 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
     data.slides.forEach(function (slide, i) {
         var imgSlide = document.createElement("div");
         imgSlide.className = "swiper-slide";
+        // Only the first slide's video preloads; the rest stay at preload "none" until their
+        // slide becomes active (see syncSlideVideos below). No autoplay for the same reason.
         imgSlide.innerHTML =
-            '<img src="./assets/images/' + data.folder + "/" + slide.image + '" ' +
-            'class="slide-illustration" alt="' + data.pageTitle.english + " illustration " + (i + 1) + '">';
+            '<video src="./assets/videos/' + data.folder + "/" + slide.video + '" ' +
+            'class="slide-illustration" preload="' + (i === 0 ? "auto" : "none") + '" ' +
+            'muted loop playsinline aria-label="' + data.pageTitle.english + " video " + (i + 1) + '"></video>';
         illustrationWrapper.appendChild(imgSlide);
 
         var captionSlide = document.createElement("div");
@@ -70,6 +73,33 @@ document.addEventListener("DOMContentLoaded", function () {
             nextEl: ".slide-nav-next",
             prevEl: ".slide-nav-prev",
         },
+    });
+
+    // The active slide's video preloads fully and plays; every other slide's video is paused
+    // and set to preload "none" so it does not download until its slide is reached.
+    function syncSlideVideos() {
+        illustrationWrapper.querySelectorAll("video").forEach(function (video, index) {
+            if (index === illustrationSwiper.activeIndex) {
+                video.preload = "auto";
+                var playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(function () {});
+                }
+            } else {
+                video.preload = "none";
+                video.pause();
+                video.currentTime = 0;
+            }
+        });
+    }
+    illustrationSwiper.on("slideChange", syncSlideVideos);
+    syncSlideVideos();
+
+    // browsers refuse to start video in a hidden tab, so pick the active one back up when shown
+    document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) {
+            syncSlideVideos();
+        }
     });
 
     illustrationSwiper.controller.control = captionSwiper;

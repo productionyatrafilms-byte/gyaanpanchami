@@ -1,8 +1,8 @@
 // Single source of truth for every topic sub-page's slides (what.html,
 // gyanpanchami.html, how.html, improve.html). Each topic's `folder` is the
-// assets/images/<folder>/ directory holding its illustrations (named
-// 1.png, 2.png, ... in slide order). `slides` holds one entry per
-// illustration — caption text is placeholder until real copy is supplied,
+// assets/videos/<folder>/ directory holding its slide videos (named
+// 1.mp4, 2.mp4, ... in slide order). `slides` holds one entry per
+// video — caption text is placeholder until real copy is supplied,
 // except "what" (topic 1) which already has real captions from Figma.
 var TOPIC_SLIDES = {
     what: {
@@ -10,7 +10,7 @@ var TOPIC_SLIDES = {
         pageTitle: { english: "What is Gyan Panchami ?", hindi: "ज्ञान पंचमी क्या है ?", gujrati: "જ્ઞાન પાંચમ શું છે ?" },
         slides: [
     {
-        image: "1.png",
+        video: "1.mp4",
         captions: {
             english: "Gyan Panchami is the festival of knowledge.",
             hindi: "ज्ञान पंचमी ज्ञान का पर्व है।",
@@ -18,7 +18,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "2.png",
+        video: "2.mp4",
         captions: {
             english: "This festival is celebrated on Kartik Sud 5 (the fifth day after Diwali).",
             hindi: "यह पर्व कार्तिक सुद 5 (दिवाली के बाद पाँचवें दिन ) को मनाया जाता है।",
@@ -26,7 +26,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "3.png",
+        video: "3.mp4",
         captions: {
             english: "On this day, we should perform Gyan Pujan of the Agam scriptures.",
             hindi: "इस दिन हमें आगम ग्रंथों का ज्ञान पूजन करना चाहिए।",
@@ -34,7 +34,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "4.png",
+        video: "4.mp4",
         captions: {
             english: "We must perform Pujan of Saraswati Devi (Goddess of Shrut).",
             hindi: "हमें सरस्वती देवी का पूजन करना चाहिए (श्रुत की देवी )",
@@ -42,7 +42,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "5.png",
+        video: "5.mp4",
         captions: {
             english: "We must perform the Gyan Panchami Vidhi.",
             hindi: "हमें ज्ञान पंचमी की विधि करनी चाहिए।",
@@ -66,7 +66,7 @@ var TOPIC_SLIDES = {
         },
         slides: [
     {
-        image: "1.png",
+        video: "1.mp4",
         captions: {
             english: "Upvas on Gyan Panchami - Kartik sud 5",
             hindi: "ज्ञान पंचमी ( कार्तिक सूद 5) पर उपवास",
@@ -74,7 +74,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "2.png",
+        video: "2.mp4",
         captions: {
             english: "Gyan Pujan",
             hindi: "ज्ञान पूजन",
@@ -82,7 +82,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "3.png",
+        video: "3.mp4",
         captions: {
             english: "51 Logass Kaussagg",
             hindi: "51 लोगस्स का काउस्सग्ग",
@@ -90,7 +90,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "4.png",
+        video: "4.mp4",
         captions: {
             english: "51 Khamasaman",
             hindi: "51 खमासमण",
@@ -98,7 +98,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "5.png",
+        video: "5.mp4",
         captions: {
             english: "51 Sathiya + Fal + Naivedhya",
             hindi: "51 साथिया + फल + नैवेद्य",
@@ -106,7 +106,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "6.png",
+        video: "6.mp4",
         captions: {
             english: "20 Mala of “OM HRIM NAMO NANASSA”",
             hindi: "20 माला : “ॐ ह्रीँ नमो नाणस्स”",
@@ -114,7 +114,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "7.png",
+        video: "7.mp4",
         captions: {
             english: "Dev - Vandan",
             hindi: "देव - वंदन",
@@ -122,7 +122,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "8.png",
+        video: "8.mp4",
         captions: {
             english: "Pratikaman",
             hindi: "प्रतिक्रमण",
@@ -137,7 +137,7 @@ var TOPIC_SLIDES = {
         pageTitle: { english: "How to do Guru Pujan ?", hindi: "गुरु पूजन कैसे करें ?", gujrati: "ગુરુ પૂજન કેવી રીતે કરવું ?" },
       slides: [
     {
-        image: "1.png",
+        video: "1.mp4",
         captions: {
             english: "We can perform Guru Pujan of Sadhu Bhagwant and take their blessings.",
             hindi: "हम साधु भगवंत का गुरु पूजन कर सकते हैं और उनका आशीर्वाद ले सकते हैं।",
@@ -145,7 +145,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "2.png",
+        video: "2.mp4",
         captions: {
             english: "We must keep money in the thali (dish) and perform Vasakshep Puja of their Right Toe.",
             hindi: "हमें थाली में धन रखना चाहिए और उनके दाहिने पैर के अंगूठे की वासक्षेप पूजा करनी चाहिए।",
@@ -153,7 +153,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "3.png",
+        video: "3.mp4",
         captions: {
             english: "We must do Pujan of Guru and not of the Money.",
             hindi: "हमें गुरु का पूजन करना चाहिए, धन का नहीं।",
@@ -161,7 +161,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "4.png",
+        video: "4.mp4",
         captions: {
             english: "Guru Pujan removes our ignorance and increases our Knowledge.",
             hindi: "गुरु पूजन हमारे अज्ञान को दूर करता है और हमारे ज्ञान को बढ़ाता है।",
@@ -169,7 +169,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "5.png",
+        video: "5.mp4",
         captions: {
             english: "While performing Guru Pujan, a book is not required.",
             hindi: "गुरु पूजन के समय, किताब की आवश्यकता नहीं पड़ती।",
@@ -185,7 +185,7 @@ var TOPIC_SLIDES = {
         endLink: { href: "./pranam.html", label: { english: "Pranam", hindi: "प्रणाम", gujrati: "પ્રણામ" } },
        slides: [
     {
-        image: "1.png",
+        video: "1.mp4",
         captions: {
             english: "Give 5 Gyan Khamasaman everyday.",
             hindi: "प्रतिदिन ज्ञान के ५ खमासमण दें।",
@@ -193,7 +193,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "2.png",
+        video: "2.mp4",
         captions: {
             english: "Do Gyan Pujan everyday.",
             hindi: "प्रतिदिन ज्ञान पूजन करें।",
@@ -201,7 +201,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "3.png",
+        video: "3.mp4",
         captions: {
             english: "Perform Pujan of Saraswati Mata.",
             hindi: "सरस्वती माता की पूजा करें,",
@@ -209,7 +209,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "4.png",
+        video: "4.mp4",
         captions: {
             english: "Perform Gyan Panchami Aaradhna regularly.",
             hindi: "ज्ञान पंचमी की नियमित आराधना करें।",
@@ -217,7 +217,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "5.png",
+        video: "5.mp4",
         captions: {
             english: "Help someone in studies.",
             hindi: "पढ़ाई में दूसरों की मदद करें।",
@@ -225,7 +225,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "6.png",
+        video: "6.mp4",
         captions: {
             english: "Learn a new Gatha everyday.",
             hindi: "प्रतिदिन नई गाथा सीखें।",
@@ -233,7 +233,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "7.png",
+        video: "7.mp4",
         captions: {
             english: "Share your knowledge with others.",
             hindi: "अपने ज्ञान को दूसरों के साथ बाँटे।",
@@ -241,7 +241,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "8.png",
+        video: "8.mp4",
         captions: {
             english: "Praise knowledgeable people.",
             hindi: "ज्ञानी की प्रशंसा करें।",
@@ -249,7 +249,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "9.png",
+        video: "9.mp4",
         captions: {
             english: "Show respect towards Sadhu - Sadhviji Bhagwant, Teachers, Pathshala Teachers, and Gyan Upkarans.",
             hindi: "साधु - साध्वीजी भगवंत, शिक्षक, पाठशाला के शिक्षक - शिक्षिका और ज्ञान के उपकरणों प्रति आदर व्यक्त करें।",
@@ -257,7 +257,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "10.png",
+        video: "10.mp4",
         captions: {
             english: "Contribute towards Pathshala or Gyan Khata.",
             hindi: "पाठशाला या ज्ञान खाता के लिए योगदान करें।",
@@ -265,7 +265,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "11.png",
+        video: "11.mp4",
         captions: {
             english: "Keep books at a proper place.",
             hindi: "पुस्तकें उचित स्थान पर रखें।",
@@ -273,7 +273,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "12.png",
+        video: "12.mp4",
         captions: {
             english: "Learn with proper concentration.",
             hindi: "एकाग्रता के साथ पढ़ाई करें।",
@@ -281,7 +281,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "13.png",
+        video: "13.mp4",
         captions: {
             english: "Sit in proper posture while studying",
             hindi: "पढ़ते समय उचित मुद्रा में बैठें।",
@@ -289,7 +289,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "14.png",
+        video: "14.mp4",
         captions: {
             english: "Study early in the morning instead of late at night",
             hindi: "देर रात में पढ़ने के बजाय सुबह जल्दी उठकर पढ़ें।",
@@ -297,7 +297,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "15.png",
+        video: "15.mp4",
         captions: {
             english: "Chant \"ૐ‌ ऐंँ नमः\" 108 times everyday",
             hindi: "\"ૐ ऐंँ नमः\" का प्रतिदिन 108 बार जाप करें।",
@@ -305,7 +305,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "16.png",
+        video: "16.mp4",
         captions: {
             english: "Chant \"ૐ ह्रीँ नमो नाणस्स\" 108 times everyday",
             hindi: "\"ૐ ह्रीँ नमो नाणस्स\" का प्रतिदिन 108 बार जाप करें।",
@@ -313,7 +313,7 @@ var TOPIC_SLIDES = {
         }
     },
     {
-        image: "17.png",
+        video: "17.mp4",
         captions: {
             english: "Meditate on “ऐंँ”",
             hindi: "“ऐंँ” का ध्यान करें",
