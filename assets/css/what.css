@@ -107,7 +107,7 @@
     left: 95.47%;
     top: 52.32%;
     width: 3.7vw;
-    height: 17.86vw;
+    height: 22.07vw;
     z-index: 10;
     transform: translate(-50%, -50%);
     background: #ffd35a;
@@ -296,7 +296,7 @@
     color: var(--caption-color);
     font-weight: 800;
     font-size: 1.8vw;
-    line-height: 1.15;
+    line-height: 1.45;
     margin: 0.6vw 0;
 }
 
@@ -513,6 +513,38 @@
 
 .topic-end-overlay-card .caption-text {
     margin: 0;
+}
+
+/* Close (X) button just outside the card's top-right corner */
+.topic-end-overlay-close {
+    position: absolute;
+    top: -3.2vw;
+    right: -3.2vw;
+    width: 2.8vw;
+    height: 2.8vw;
+    padding: 0;
+    border: 0.2vw solid var(--caption-color);
+    border-radius: 50%;
+    background: #ffffff;
+    color: var(--caption-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.3vw 0.8vw rgba(0, 0, 0, 0.25);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.topic-end-overlay-close:hover {
+    background: var(--caption-color);
+    color: #ffffff;
+    transform: scale(1.08);
+}
+
+.topic-end-overlay-close svg {
+    display: block;
+    width: 1.3vw;
+    height: 1.3vw;
 }
 
 /* Sits in the exact .home-btn slot (top-left, same level as #langSelect) —

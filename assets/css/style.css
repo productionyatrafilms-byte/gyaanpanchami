@@ -23,6 +23,23 @@
     font-display: swap;
 }
 
+/* Real bold faces for Hindi/Gujarati (otherwise the browser fakes bold from the regular file) */
+@font-face {
+    font-family: "Noto Sans Devanagari";
+    src: url("../../fonts/ITFDevanagari-Bold-02.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans Gujarati";
+    src: url("../../fonts/NotoSansGujarati-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
     margin: 0;
     padding: 0;

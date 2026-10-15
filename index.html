@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Noto+Sans+Devanagari&family=Noto+Sans+Gujarati&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/plugins/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/style.css?v=2">
+    <link rel="stylesheet" href="./assets/css/index.css?v=11">
 </head>
 
 <body id="body">
@@ -53,6 +53,17 @@
                 <span class="gujrati">જ્ઞાન <br/> પાંચમ</span>
             </div>
 
+            <!-- revealed state: title bar (title.png + its own copy of the title text) that
+                 slides down from the top on click while the big centre title fades out -->
+            <div class="stage-item title-bar">
+                <img class="title-bar-img" src="./assets/images/title.png" alt="">
+                <div class="title-bar-text">
+                    <span class="english">Gyan Panchami</span>
+                    <span class="hindi">ज्ञान पंचमी</span>
+                    <span class="gujrati">જ્ઞાન પાંચમ</span>
+                </div>
+            </div>
+
             <!-- default state: click-to-reveal button -->
             <button type="button" class="stage-item btn-click" id="btnReveal">
                 <span class="btn-click-label">
@@ -62,13 +73,10 @@
                 </span>
             </button>
 
-            <!-- revealed-state composition: center decoration + all 4 topic
-                 cards, grouped so they scale up together from the exact
-                 center as ONE unit (zoom-through transition) -->
+            <!-- revealed-state composition: title banner + all 5 topic cards (the
+                 center one is topic 4), grouped so they scale up together from the
+                 exact center as ONE unit (zoom-through transition) -->
             <div class="reveal-group" id="revealGroup">
-                <img class="stage-item center-deco center-deco-lg" src="./assets/images/inner.png" alt="">
-                <img class="stage-item center-deco center-deco-sm" src="./assets/images/inner.png" alt="">
-
                 <a href="./what.html" class="stage-item topic-card topic-card-1">
                     <img src="./assets/images/cards.png" alt="">
                     <span class="topic-card-label">
@@ -87,21 +95,30 @@
                     </span>
                 </a>
 
-                <a href="./how.html" class="stage-item topic-card topic-card-3">
+                <a href="./gyan.html" class="stage-item topic-card topic-card-3">
                     <img src="./assets/images/cards.png" alt="">
                     <span class="topic-card-label">
-                        <span class="english"><b>3.</b> How to do Guru Pujan ?</span>
-                        <span class="hindi"><b>3.</b> गुरु पूजन कैसे करें ?</span>
-                        <span class="gujrati"><b>3.</b> ગુરુ પૂજન કેવી રીતે કરવું ?</span>
+                        <span class="english"><b>3.</b> How to do Gyan Pujan ?</span>
+                        <span class="hindi"><b>3.</b> ज्ञान पूजन कैसे करें ?</span>
+                        <span class="gujrati"><b>3.</b> જ્ઞાન પૂજન કેવી રીતે કરવું ?</span>
                     </span>
                 </a>
 
-                <a href="./improve.html" class="stage-item topic-card topic-card-4">
+                <a href="./how.html" class="stage-item topic-card topic-card-4">
                     <img src="./assets/images/cards.png" alt="">
                     <span class="topic-card-label">
-                        <span class="english"><b>4.</b> How to improve memory</span>
-                        <span class="hindi"><b>4.</b> स्मरणशक्ति बढ़ाने के उपाय</span>
-                        <span class="gujrati"><b>4.</b> યાદશક્તિ વધારવાની રીતો</span>
+                        <span class="english"><b>4.</b> How to do Guru Pujan ?</span>
+                        <span class="hindi"><b>4.</b> गुरु पूजन कैसे करें ?</span>
+                        <span class="gujrati"><b>4.</b> ગુરુ પૂજન કેવી રીતે કરવું ?</span>
+                    </span>
+                </a>
+
+                <a href="./improve.html" class="stage-item topic-card topic-card-5">
+                    <img src="./assets/images/cards.png" alt="">
+                    <span class="topic-card-label">
+                        <span class="english"><b>5.</b> How to improve memory</span>
+                        <span class="hindi"><b>5.</b> स्मरणशक्ति बढ़ाने के उपाय</span>
+                        <span class="gujrati"><b>5.</b> યાદશક્તિ વધારવાની રીતો</span>
                     </span>
                 </a>
             </div>

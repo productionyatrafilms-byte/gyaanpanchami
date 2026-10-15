@@ -122,6 +122,16 @@ document.addEventListener("DOMContentLoaded", function () {
             "</div>";
         stage.appendChild(overlayEl);
 
+        // Close (X) button, hanging off the card's top-right corner. Same action as the
+        // top-left back button (closeEndOverlay below).
+        var overlayCloseBtn = document.createElement("button");
+        overlayCloseBtn.type = "button";
+        overlayCloseBtn.className = "topic-end-overlay-close";
+        overlayCloseBtn.setAttribute("aria-label", "Close");
+        overlayCloseBtn.innerHTML =
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>';
+        overlayEl.appendChild(overlayCloseBtn);
+
         // Reuses the page's own back button slot (same spot as .home-btn,
         // top-left) instead of a button on the card itself — .home-btn
         // hides while this is open, this shows in its place.
@@ -180,6 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
         overlayBackBtn.addEventListener("click", closeEndOverlay);
+        overlayCloseBtn.addEventListener("click", closeEndOverlay);
     }
 
     // Topics can flag an `endLink` (see improve.html's TOPIC_SLIDES entry) —

@@ -23,6 +23,15 @@
     font-family: "Noto Sans Gujarati", sans-serif;
 }
 
+/* Hindi/Gujarati title: bold and a little bigger than the English one, with a touch more
+   line spacing so the two stacked lines don't crowd each other */
+.title .hindi,
+.title .gujrati {
+    font-weight: 800;
+    font-size: 6.6vw;
+    line-height: 1.2;
+}
+
 .btn-click-label,
 .topic-card-label {
     font-family: "Barlow Condensed", sans-serif;
@@ -73,7 +82,7 @@ body.is-revealed .page-bg {
 /* ---------- Backdrop card behind title + Click button (default state only) ---------- */
 .main-card {
     left: 50%;
-    top: 10%;
+    top: 10.21%;
     width: 55vw;
     z-index: 1;
     transform: translateX(-50%);
@@ -114,7 +123,7 @@ body.is-revealed .page-bg {
    or moves on reveal, per direct instruction. */
 .title {
     left: 50%;
-    top: 50%;
+    top: 48.1%;
     width: 46.87vw;
     z-index: 3;
     transform: translate(-50%, -50%);
@@ -126,35 +135,100 @@ body.is-revealed .page-bg {
     paint-order: stroke fill;
 }
 
-/* Small dip-and-recover pulse during the click transition — title stays in
-   its exact spot the whole time, just briefly scales down then back up to
-   its original size by the time the transition ends. */
-@keyframes titlePulse {
+/* On click the big title fades out (a quick 0.35s fade at the start of the 1.8s zoom-through); the title bar
+   below slides down in its place. Keyframes, not transitions, so a window resize never
+   makes anything lag. */
+@keyframes titleFadeOut {
     0% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    50% {
-        transform: translate(-50%, -50%) scale(0.85);
+        opacity: 1;
     }
 
     100% {
-        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
     }
 }
 
 .stage.is-animating .title {
-    animation: titlePulse 1.8s linear forwards;
+    animation: titleFadeOut 0.35s ease-out forwards;
 }
 
 .stage.is-revealed .title {
-    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ---------- Title bar (revealed state): title.png + its own copy of the title text ---------- */
+.title-bar {
+    left: 27.68%;
+    top: 0;
+    width: 44.64vw;
+    z-index: 3;
+    line-height: 0;
+    transform: translateY(-140%);
+}
+
+.title-bar-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.title-bar-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    color: var(--maroon);
+    font-size: 4.5vw;
+    line-height: 1;
+    -webkit-text-stroke: 0.2vw var(--bg-cream);
+    paint-order: stroke fill;
+}
+
+.title-bar-text .english {
+    font-family: "Berkshire Swash", cursive;
+}
+
+.title-bar-text .hindi,
+.title-bar-text .gujrati {
+    font-weight: 800;
+    font-size: 4.9vw;
+    line-height: 1.1;
+}
+
+.title-bar-text .hindi {
+    font-family: "Noto Sans Devanagari", "Devanagari Sangam MN", serif;
+}
+
+.title-bar-text .gujrati {
+    font-family: "Noto Sans Gujarati", sans-serif;
+}
+
+@keyframes titleBarSlideDown {
+    0% {
+        transform: translateY(-140%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.stage.is-animating .title-bar {
+    animation: titleBarSlideDown 1.8s ease-out forwards;
+}
+
+.stage.is-revealed .title-bar {
+    transform: translateY(0);
 }
 
 /* ---------- Click button: solid pill (pure CSS, no image) ---------- */
 .btn-click {
     left: 50%;
-    top: 80%;
+    top: 76.5%;
     width: 7vw;
     aspect-ratio: 2.4 / 1;
     height: auto;
@@ -214,7 +288,8 @@ body.is-revealed .page-bg {
    it keeps clear space from the pill's curved border instead of touching it. */
 .btn-click-label .hindi,
 .btn-click-label .gujrati {
-    font-size: 1.3vw;
+    font-size: 1.45vw;
+    font-weight: 800;
 }
 
 .btn-click:hover .btn-click-label {
@@ -295,41 +370,6 @@ body.is-revealed .back-btn {
     pointer-events: auto;
 }
 
-/* ---------- Center decoration ---------- */
-/* Spins in place while .reveal-group (its parent) grows it from tiny to
-   full size — only the decoration spins, not the whole group, so the
-   topic cards/back button stay upright. */
-.center-deco-lg {
-    left: 28.44%;
-    top: 8.11%;
-    width: 43.09vw;
-}
-
-.center-deco-sm {
-    left: 30.47%;
-    top: 12.38%;
-    width: 39.03vw;
-}
-
-@keyframes centerDecoSpinIn {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        /* counter-rotates against main-card's spin for visual variety */
-        transform: rotate(-1turn);
-    }
-}
-
-.stage.is-animating .center-deco {
-    animation: centerDecoSpinIn 1.8s linear forwards;
-}
-
-.stage.is-revealed .center-deco {
-    transform: rotate(0deg);
-}
-
 /* ---------- Topic cards ---------- */
 .topic-card {
     width: 18.99vw;
@@ -347,24 +387,47 @@ body.is-revealed .back-btn {
     transform: rotate(360deg);
 }
 
+/* All five card shapes spin one full turn while the zoom-through plays (labels stay
+   upright — only the image rotates), landing back at 0deg when it ends. */
+@keyframes topicCardSpinIn {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-1turn);
+    }
+}
+
+.stage.is-animating .topic-card img {
+    animation: topicCardSpinIn 1.8s linear forwards;
+}
+
 .topic-card-1 {
     left: 11.72%;
-    top: 6.90%;
+    top: 11.63%;
 }
 
 .topic-card-2 {
     left: 69.58%;
-    top: 6.90%;
+    top: 11.63%;
 }
 
 .topic-card-3 {
     left: 11.72%;
-    top: 60.02%;
+    top: 62.2%;
 }
 
+/* topic 4 is the centre card — larger than the corner ones */
 .topic-card-4 {
+    left: 37.7%;
+    top: 31.2%;
+    width: 24.5vw;
+}
+
+.topic-card-5 {
     left: 69.58%;
-    top: 60.02%;
+    top: 62.2%;
 }
 
 .topic-card-label {
@@ -383,3 +446,30 @@ body.is-revealed .back-btn {
     text-shadow: 0 0.21vw 0.21vw rgba(0, 0, 0, 0.25);
 }
 
+/* Hindi/Gujarati card labels: bold, a little bigger, with more line spacing so the
+   stacked lines (and their matras) don't crowd each other */
+.topic-card-label .hindi,
+.topic-card-label .gujrati {
+    font-weight: 700;
+    font-size: 2.6vw;
+    line-height: 1.4;
+}
+
+/* the real Gujarati bold is wider; 2.4vw is the largest size that keeps every card label on
+   two lines inside its card */
+.topic-card-label .gujrati {
+    font-size: 2.4vw;
+}
+
+/* centre card (topic 4) is 1.29x the corner cards — scale its label to match */
+.topic-card-4 .topic-card-label {
+    font-size: 3vw;
+}
+
+.topic-card-4 .topic-card-label .hindi {
+    font-size: 3.35vw;
+}
+
+.topic-card-4 .topic-card-label .gujrati {
+    font-size: 3.1vw;
+}
